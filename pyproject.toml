@@ -8,6 +8,13 @@ dependencies = [
     "python-dotenv>=1.0.0",  # You mentioned using .env
 ]
 
+[dependency-groups]
+dev = [
+    "ruff>=0.8.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -47,7 +54,7 @@ testpaths = [
     "tests",
 ]
 python_files = "test_*.py"
-python_path = ["src"]  # Ensures src is in path for imports
+pythonpath = ["src"]  # Ensures src is in path for imports
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]

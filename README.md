@@ -9,7 +9,6 @@ A standardized template for Langland Conservation Python projects, configured wi
 2.  **Initialize Environment**:
     ```bash
     uv sync
-    uv add --dev ruff pytest pytest-cov
     ```
 3.  **Configure AI Context**:
     - Open `CLAUDE.md`.
