@@ -19,6 +19,7 @@
   - Sync: `uv sync`
   - Run: `uv run <script>`
 - **Linting/Formatting:** `ruff` via `uv run ruff check .` or `format .`
+- **Pre-commit:** `uv run pre-commit install` (runs format, lint, tests on commit)
 - **Secrets:** `.env` for local development.
 
 ## 2. Code Structure & Standards

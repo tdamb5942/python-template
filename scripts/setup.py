@@ -2,10 +2,11 @@
 
 This script:
 1. Installs dependencies via uv
-2. Creates .env from .env.example if needed
-3. Interactively fills out CLAUDE.md context
-4. Runs smoke tests to validate the environment
-5. Cleans up smoke test artifacts on success
+2. Installs pre-commit git hooks
+3. Creates .env from .env.example if needed
+4. Interactively fills out CLAUDE.md context
+5. Runs smoke tests to validate the environment
+6. Cleans up smoke test artifacts on success
 """
 
 import shutil
@@ -54,6 +55,19 @@ def install_dependencies() -> bool:
         return False
 
     print("✅ Dependencies installed successfully\n")
+    return True
+
+
+def install_pre_commit_hooks() -> bool:
+    """Install pre-commit git hooks.
+
+    Returns:
+        bool: True if installation succeeded.
+    """
+    if not run_command(["uv", "run", "pre-commit", "install"], "Installing pre-commit git hooks"):
+        return False
+
+    print("✅ Pre-commit hooks installed successfully\n")
     return True
 
 
@@ -161,17 +175,22 @@ def main() -> int:
         print("\n💥 Setup failed during dependency installation")
         return 1
 
-    # Step 2: Setup environment variables
+    # Step 2: Install pre-commit hooks
+    if not install_pre_commit_hooks():
+        print("\n💥 Setup failed during pre-commit installation")
+        return 1
+
+    # Step 3: Setup environment variables
     setup_env_file()
 
-    # Step 3: Configure AI context
+    # Step 4: Configure AI context
     update_claude_context()
 
-    # Step 4: Validate with smoke tests
+    # Step 5: Validate with smoke tests
     if not run_smoke_tests():
         return 1
 
-    # Step 5: Cleanup
+    # Step 6: Cleanup
     cleanup_smoke_files()
 
     # Success!
