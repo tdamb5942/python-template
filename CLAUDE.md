@@ -4,11 +4,11 @@
 > **Instructions for User:** Before starting, please answer the three questions below. This helps me tailor my code generation to your specific role and project goals.
 
 1.  **What is your Role?** (e.g., Junior Data Engineer, Lead Dev, Analyst)
-    - [ANSWER HERE]
+    - {{ROLE}}
 2.  **What is the Core Project Goal?** (e.g., ETL pipeline for wildlife camera trap data)
-    - [ANSWER HERE]
+    - {{PROJECT_GOAL}}
 3.  **Are there specific constraints?** (e.g., Must run on Raspberry Pi, strictly no cloud storage, etc.)
-    - [ANSWER HERE]
+    - {{CONSTRAINTS}}
 
 ---
 

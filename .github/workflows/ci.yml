@@ -10,6 +10,9 @@ jobs:
   quality-gate:
     name: Quality Gate (Lint, Format, Test)
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - name: Checkout code
@@ -19,12 +22,13 @@ jobs:
         uses: astral-sh/setup-uv@v1
         with:
           version: "latest"
+          enable-cache: true
 
-      - name: Set up Python
-        run: uv python install 3.11
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: uv sync --all-extras --dev
+        run: uv sync --with-dev
 
       - name: Check Formatting
         run: uv run ruff format --check .
