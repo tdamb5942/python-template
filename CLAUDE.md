@@ -4,16 +4,16 @@
 > **Instructions for User:** Before starting, please answer the three questions below. This helps me tailor my code generation to your specific role and project goals.
 
 1.  **What is your Role?** (e.g., Junior Data Engineer, Lead Dev, Analyst)
-    - {{ROLE}}
+    - Junior Data Engineer
 2.  **What is the Core Project Goal?** (e.g., ETL pipeline for wildlife camera trap data)
-    - {{PROJECT_GOAL}}
+    - Update this template repo
 3.  **Are there specific constraints?** (e.g., Must run on Raspberry Pi, strictly no cloud storage, etc.)
-    - {{CONSTRAINTS}}
+    - None
 
 ---
 
 ## 1. Development Environment
-- **Language:** Python 3.9+
+- **Language:** Python 3.11+
 - **Package Manager:** `uv` (Strictly no pip/poetry).
   - Install: `uv add <package>` | `uv add --dev <package>`
   - Sync: `uv sync`

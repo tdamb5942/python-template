@@ -8,6 +8,7 @@ This script:
 5. Cleans up smoke test artifacts on success
 """
 
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -127,13 +128,19 @@ def run_smoke_tests() -> bool:
 
 
 def cleanup_smoke_files() -> None:
-    """Remove smoke test artifacts after successful validation."""
+    """Remove smoke test artifacts and setup scripts after successful validation."""
     print("🧹 Removing smoke test artifacts...")
 
     for file_path in SMOKE_FILES:
         if file_path.exists():
             file_path.unlink()
             print(f"   Deleted: {file_path.relative_to(PROJECT_ROOT)}")
+
+    # Remove the scripts directory (including this setup script)
+    scripts_dir = PROJECT_ROOT / "scripts"
+    if scripts_dir.exists():
+        shutil.rmtree(scripts_dir)
+        print(f"   Deleted: {scripts_dir.relative_to(PROJECT_ROOT)}/")
 
     print()
 
@@ -169,7 +176,7 @@ def main() -> int:
 
     # Success!
     print("=" * 60)
-    print("✨ Project is ready! Don't forget to commit the deletion of smoke files.")
+    print("✨ Project is ready! Don't forget to commit the cleanup deletions.")
     print("=" * 60)
 
     return 0
