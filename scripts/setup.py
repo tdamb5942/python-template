@@ -49,9 +49,7 @@ def install_dependencies() -> bool:
     Returns:
         bool: True if all installations succeeded.
     """
-    if not run_command(
-        ["uv", "sync", "--with-dev"], "Installing all dependencies (including dev tools)"
-    ):
+    if not run_command(["uv", "sync"], "Installing all dependencies (including dev tools)"):
         return False
 
     print("✅ Dependencies installed successfully\n")

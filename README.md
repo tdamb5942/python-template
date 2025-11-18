@@ -21,7 +21,7 @@ A standardized template for Langland Conservation Python projects, configured wi
 1.  **Clone this repo** (or use "Use this template").
 2.  **Initialize Environment**:
     ```bash
-    uv sync --with-dev
+    uv sync
     ```
 3.  **Configure AI Context**:
     - Open `CLAUDE.md`.
