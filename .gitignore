@@ -8,6 +8,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# --- Dependency Lock File ---
+# Not committed so new clones resolve latest compatible versions
+uv.lock
+
 # --- Environments & Secrets ---
 # Ignore all .env files...
 .env

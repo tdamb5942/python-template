@@ -3,13 +3,19 @@
 # Run manually: uv run pre-commit run --all-files
 
 repos:
-  # Ruff - linting and formatting
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.0
+  # Ruff - linting and formatting (uses project's ruff version from uv sync)
+  - repo: local
     hooks:
-      - id: ruff
-        args: [--fix]
       - id: ruff-format
+        name: ruff-format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+      - id: ruff-check
+        name: ruff-check
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
 
   # Run tests before commit
   - repo: local
