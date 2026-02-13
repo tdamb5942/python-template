@@ -40,3 +40,15 @@
 - **Explain "Why":** If you see inefficient patterns, explain the optimization (O-notation or Pythonic sugar).
 - **Security First:** Aggressively warn about hardcoded credentials.
 - **Data Integrity:** Suggest validation checks (Pydantic or simple asserts) for data ingest inputs.
+
+## 5. Workflow (Phase-Gated Delivery)
+- **Plan:** `docs/workflow/PLAN.md` — current phase, scope boundaries, and checklists.
+- **Decisions:** `docs/workflow/DECISIONS.md` — architecture decision log (append-only).
+- **Gates:** `docs/workflow/GATES.md` — review criteria per phase (command + manual).
+- **CLI:** `uv run scripts/workflow.py status|prompt|validate`
+- **Rules:**
+  - Read `docs/workflow/PLAN.md` at the start of every session.
+  - Do NOT begin work on a phase until the prior phase's review gate passes.
+  - When making an architecture decision, append to `docs/workflow/DECISIONS.md` BEFORE implementing.
+  - When completing a checklist item, update `docs/workflow/PLAN.md` (`- [ ]` to `- [x]`).
+  - Run `uv run scripts/workflow.py validate` before marking a phase complete.

@@ -50,7 +50,7 @@ indent-style = "space"
 # 2. Pytest configuration
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-ra -q --cov=src"  # Default to running coverage on src
+addopts = "-ra -q --cov=src --cov=scripts"  # Include bootstrap script coverage
 testpaths = [
     "tests",
 ]

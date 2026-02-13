@@ -35,3 +35,6 @@ jobs:
 
       - name: Run Tests
         run: uv run pytest
+
+      - name: Validate Workflow Docs
+        run: uv run scripts/workflow.py validate
