@@ -1,61 +1,35 @@
-# --- OS & System Files ---
+# OS
 .DS_Store
 Thumbs.db
+
+# Logs
 *.log
 
-# --- Python Core ---
-__pycache__/
-*.py[cod]
-*$py.class
-
-# --- Dependency Lock File ---
-# Not committed so new clones resolve latest compatible versions
-uv.lock
-
-# --- Environments & Secrets ---
-# Ignore all .env files...
+# Secrets and local environment
 .env
 .env.*
-
-# ...but explicitly allow the example file
 !.env.example
 
-# Virtual Environment directories
-.venv/
-venv/
-env/
-
-# --- IDEs & Editors ---
-# JetBrains (PyCharm)
+# Editor and IDE
 .idea/
-*.iml
-
-# VS Code
 .vscode/
+*.iml
 *.code-workspace
 
-# --- Testing & Quality Checks ---
+# Python artifacts (if Python profile is enabled)
+__pycache__/
+*.py[cod]
+.venv/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
 .coverage
-htmlcov/
 coverage.xml
+htmlcov/
 
-# --- Build & Distribution ---
+# Node artifacts (if Node profile is enabled)
+node_modules/
+
+# Generic build outputs
 dist/
 build/
-*.egg-info/
-
-# --- Data Engineering ---
-# Jupyter notebook checkpoints
-.ipynb_checkpoints/
-
-# Local data files (prevent accidental commit of large/sensitive datasets)
-*.csv
-*.json
-*.parquet
-
-# Allow specific test data files to be committed
-!tests/data/*.json
-!tests/data/*.csv

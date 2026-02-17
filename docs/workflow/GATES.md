@@ -1,32 +1,29 @@
 # Review Gates
 
-> Each phase must pass ALL criteria before advancing to the next phase.
-> Criteria marked `[command]` are verified automatically by CI.
-> Criteria marked `[manual]` require human judgment.
+Each phase must pass all criteria before advancing.
+
+- `[command]` criteria are machine-verifiable.
+- `[manual]` criteria require human judgment.
 
 ---
 
-## Phase 1: Design & Contract
+## Phase 1: Problem Framing and Contract
 
-- [ ] `[manual]` Source and target schemas are documented and reviewed
-- [ ] `[manual]` Data flow is described in DECISIONS.md
-- [ ] `[manual]` Error handling strategy is decided in DECISIONS.md
-- [ ] `[command]` `uv run scripts/workflow.py validate` passes
+- [ ] `[manual]` Objective, scope, constraints, and non-goals are coherent
+- [ ] `[manual]` Interfaces and acceptance criteria are testable
+- [ ] `[manual]` Risks and mitigations are documented
+- [ ] `[command]` `./scripts/workflow.sh validate` passes
 
-## Phase 2: Core Pipeline
+## Phase 2: Implementation and Verification
 
-- [ ] `[command]` `uv run pytest` passes with no failures
-- [ ] `[command]` `uv run ruff check .` passes
-- [ ] `[command]` `uv run ruff format --check .` passes
-- [ ] `[manual]` Error handling covers all failure modes from Phase 1 design
-- [ ] `[manual]` Integration test demonstrates end-to-end correctness
-- [ ] `[command]` `uv run scripts/workflow.py validate` passes
+- [ ] `[manual]` Implementation matches phase 1 contracts
+- [ ] `[manual]` Edge cases and failure modes are handled
+- [ ] `[command]` `./scripts/workflow.sh validate` passes
+- [ ] `[command]` Language-profile checks pass (see selected profile in `standards/`)
 
-## Phase 3: Integration & Deployment
+## Phase 3: Hardening and Delivery
 
-- [ ] `[command]` `uv run pytest` passes
-- [ ] `[command]` `uv run ruff check .` passes
-- [ ] `[manual]` README includes usage instructions
 - [ ] `[manual]` Runbook documents failure scenarios and recovery steps
-- [ ] `[manual]` Data quality assertions cover critical fields
-- [ ] `[command]` `uv run scripts/workflow.py validate` passes
+- [ ] `[manual]` Remaining risks and owners are explicit
+- [ ] `[command]` `./scripts/workflow.sh validate` passes
+- [ ] `[command]` Release-quality checks pass (from selected language profile)

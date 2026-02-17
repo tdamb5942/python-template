@@ -1,107 +1,122 @@
 # Implementation Plan
 
-**Project:** {{PROJECT_NAME}}
-**Current Phase:** 1
-**Last Updated:** {{DATE}}
+**Project:** Template Project  
+**Current Phase:** 1  
+**Last Updated:** 2026-02-17  
+
+## Project Contract (Phase 1 required)
+
+Fill this in *before* implementation. Treat this block as the primary source for Phase 1 scope and acceptance; use `DECISIONS.md` for architecture decisions and `GATES.md` for advancement criteria.
+
+### Required
+- **Objective:** Provide a language-agnostic template for phase-gated agentic software delivery.
+- **Success criteria:** Workflow docs validate, template checks pass, and language standards can be applied via profiles.
+- **Constraints:** Core template stays language-agnostic; language-specific enforcement belongs in `standards/` profiles.
+- **Non-goals:** Shipping full implementation scaffolds for every language in core.
+- **Risks:** Teams may skip profile selection or keep ambiguous scope; detect via workflow validation and gate reviews.
+
+### Strongly recommended (to make Phase 1 gates unambiguous)
+- **Assumptions:** [TBD — Inputs you’re assuming to be true]
+- **Key interfaces / contracts:** [TBD — APIs, CLI, schemas, file formats, SLAs]
+- **Acceptance checks:** [TBD — How we will verify success (tests, commands, scenarios)]
+- **Risks & mitigations:** [TBD — Map risks to concrete mitigations/owners]
+- **Phase 2 scope boundary:** [TBD — What Phase 2 will implement vs defer]
 
 ## Blockers
-<!-- List anything blocking progress. Remove items when resolved. -->
 - None
 
 ## Decisions
-<!-- Brief summary of key decisions. Full detail in DECISIONS.md. -->
-- ADR-000: Adopted phase-gated workflow for structured delivery.
+- ADR-000: Use a phase-gated workflow as the execution contract.
 
 ---
 
-## Phase 1: Design & Contract
+## Phase 1: Problem Framing and Contract
 
-**Goal:** Define data contracts, schemas, and pipeline architecture before writing implementation code.
+**Goal:** Lock scope, interface expectations, and acceptance criteria before implementation.
 
 ### Read First
+- `AGENTS.md`
 - `docs/workflow/DECISIONS.md`
 - `docs/workflow/GATES.md`
 
 ### Scope
-- Define source and target data schemas
-- Document data flow and transformation logic
-- Establish error handling strategy
-- Write acceptance criteria for pipeline outputs
+- Define target user or system outcome
+- Define success criteria and measurable acceptance checks
+- Document constraints, assumptions, and non-goals
+- Identify high-risk unknowns and mitigation strategy
 
 ### Out of Scope
-- Production implementation code
-- Performance optimization
-- Deployment configuration
+- Feature implementation
+- Performance tuning
+- Deployment automation
 
 ### Checklist
-- [ ] (1-1) Source data schema documented
-- [ ] (1-2) Target data schema documented
-- [ ] (1-3) Data flow diagram or description in DECISIONS.md
-- [ ] (1-4) Error handling strategy decided (see DECISIONS.md)
-- [ ] (1-5) Acceptance criteria written in GATES.md
+- [ ] (1-1) Objective and success criteria are explicit
+- [ ] (1-2) Constraints and non-goals are explicit
+- [ ] (1-3) Key interfaces/contracts are documented
+- [ ] (1-4) Major risks and mitigations are documented
+- [ ] (1-5) Phase 2 scope is clearly bounded
 
 ### Review Gate
 See `docs/workflow/GATES.md` Phase 1 section.
 
 ---
 
-## Phase 2: Core Pipeline
+## Phase 2: Implementation and Verification
 
-**Goal:** Build the core data pipeline with tests, following Phase 1 contracts.
+**Goal:** Build the scoped solution and verify correctness against phase 1 contracts.
 
 ### Read First
-- `docs/workflow/PLAN.md` (Phase 1 checklist — must be complete)
+- `docs/workflow/PLAN.md` (phase 1 checklist)
 - `docs/workflow/DECISIONS.md`
+- Selected language profile in `standards/`
 
 ### Scope
-- Implement extraction logic
-- Implement transformation logic
-- Implement loading logic
-- Unit tests for each stage
-- Integration test for end-to-end flow
+- Implement agreed interfaces and behavior
+- Add tests for core behavior and edge cases
+- Resolve review findings that block correctness
 
 ### Out of Scope
-- Deployment automation
-- Monitoring and alerting
-- Performance tuning beyond correctness
+- New feature requests outside phase 1 scope
+- Broad refactors not justified by scope or risk
 
 ### Checklist
-- [ ] (2-1) Extract module implemented and tested
-- [ ] (2-2) Transform module implemented and tested
-- [ ] (2-3) Load module implemented and tested
-- [ ] (2-4) End-to-end integration test passes
-- [ ] (2-5) Error handling covers documented failure modes
+- [ ] (2-1) Implementation matches phase 1 contracts
+- [ ] (2-2) Tests cover core behavior and edge cases
+- [ ] (2-3) Defined quality gates pass locally
+- [ ] (2-4) Blocking review findings are resolved
+- [ ] (2-5) Phase 3 hardening scope is documented
 
 ### Review Gate
 See `docs/workflow/GATES.md` Phase 2 section.
 
 ---
 
-## Phase 3: Integration & Deployment
+## Phase 3: Hardening and Delivery
 
-**Goal:** Production-ready pipeline with CI, monitoring, and documentation.
+**Goal:** Make the solution production-ready with operational confidence.
 
 ### Read First
-- `docs/workflow/PLAN.md` (Phase 2 checklist — must be complete)
+- `docs/workflow/PLAN.md` (phase 2 checklist)
 - `docs/workflow/GATES.md`
+- Selected language profile in `standards/`
 
 ### Scope
-- CI/CD pipeline configuration
-- Data quality assertions
-- Logging and error reporting
-- README and runbook documentation
-- Final cleanup and code review
+- Finalize CI/CD and release checks
+- Add operational runbook and failure handling guidance
+- Confirm observability and recovery expectations
+- Final documentation and handoff notes
 
 ### Out of Scope
-- Feature additions beyond original scope
-- Performance optimization beyond SLA requirements
+- Net-new features unrelated to original objective
+- Redesigning architecture without a new ADR
 
 ### Checklist
-- [ ] (3-1) CI pipeline runs all quality gates
-- [ ] (3-2) Data quality assertions implemented
-- [ ] (3-3) Logging covers all pipeline stages
-- [ ] (3-4) README updated with usage instructions
-- [ ] (3-5) Runbook documents common failure scenarios
+- [ ] (3-1) CI gates are stable and deterministic
+- [ ] (3-2) Operational runbook covers common failures
+- [ ] (3-3) Observability and alerting expectations are documented
+- [ ] (3-4) Release notes and usage docs are complete
+- [ ] (3-5) Open risks are tracked with owners
 
 ### Review Gate
 See `docs/workflow/GATES.md` Phase 3 section.
