@@ -1,10 +1,6 @@
 # AGENTS.md
 
-This file is the canonical instruction contract for agentic coding assistants in this repository.
-
-## Precedence
-- This repo’s instructions override any global agent preferences.
-- If there is a conflict, follow the nearest repo-local instruction and workflow artifacts.
+Canonical instruction contract for repos scaffolded from this template. Builds on the global `~/.claude/AGENTS.md` (always in effect: precedence, plan-before-build, security, git conventions, ADR triggers); this file adds the phase-gated workflow and repo-specific standards, and takes precedence only for local workflow and conventions.
 
 ## Session Start (mandatory)
 1) Read:
@@ -68,6 +64,5 @@ Add additional profiles under `standards/` for other languages as needed.
 - Coverage thresholds must be enforced by CI when a language profile defines them.
 - Public behavior changes require matching tests in the selected language profile.
 
-## Safety (non-negotiable)
-- Never commit secrets.
-- Use synthetic data in examples/tests; do not paste real customer/PII/PHI into logs or tests.
+## Safety
+Global security rules always apply (no secrets, synthetic-only test data, parameterized SQL). Add repo-specific safety constraints here.
