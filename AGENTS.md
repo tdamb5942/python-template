@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Canonical instruction contract for repos scaffolded from this template. Builds on the global `~/.claude/AGENTS.md` (always in effect: precedence, plan-before-build, security, git conventions, ADR triggers); this file adds the phase-gated workflow and repo-specific standards, and takes precedence only for local workflow and conventions.
+Canonical instruction contract for repos scaffolded from this template. Builds on your global, system-level `AGENTS.md` (always in effect, whichever coding tool you use: precedence, plan-before-build, security, git conventions, ADR triggers); this file adds the phase-gated workflow and repo-specific standards, and takes precedence only for local workflow and conventions.
 
 ## Session Start (mandatory)
 1) Read:
