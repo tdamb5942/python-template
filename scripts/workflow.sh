@@ -18,8 +18,16 @@ USAGE
 }
 
 read_current_phase() {
-  local value
-  value="$({ grep -E '^\*\*Current Phase:\*\*[[:space:]]*[0-9]+' "$PLAN_PATH" || true; } | head -n 1 | sed -E 's/^\*\*Current Phase:\*\*[[:space:]]*([0-9]+).*$/\1/')"
+  local lines count value
+  lines="$({ grep -E '^\*\*Current Phase:\*\*[[:space:]]*[0-9]+' "$PLAN_PATH" || true; })"
+  if [[ -n "$lines" ]]; then
+    count=$(printf '%s\n' "$lines" | wc -l | tr -d ' ')
+    if [[ "$count" -gt 1 ]]; then
+      echo "ERROR: PLAN.md has $count '**Current Phase:**' markers; expected exactly one." >&2
+      return 1
+    fi
+  fi
+  value="$(printf '%s\n' "$lines" | head -n 1 | sed -E 's/^\*\*Current Phase:\*\*[[:space:]]*([0-9]+).*$/\1/')"
   printf '%s' "$value"
 }
 
@@ -50,8 +58,8 @@ checklist_totals() {
   local block total done
   block="$(phase_body "$key")"
 
-  total=$(printf '%s\n' "$block" | { grep -E '^- \[[ xX]\] \([^)]+\) .+' || true; } | wc -l | tr -d ' ')
-  done=$(printf '%s\n' "$block" | { grep -E '^- \[[xX]\] \([^)]+\) .+' || true; } | wc -l | tr -d ' ')
+  total=$(printf '%s\n' "$block" | { grep -E '^[[:space:]]*- \[[ xX]\] .+' || true; } | wc -l | tr -d ' ')
+  done=$(printf '%s\n' "$block" | { grep -E '^[[:space:]]*- \[[xX]\] .+' || true; } | wc -l | tr -d ' ')
   printf '%s %s\n' "$done" "$total"
 }
 
@@ -59,7 +67,7 @@ is_unchecked_in_phase() {
   local key="$1"
   local block
   block="$(phase_body "$key")"
-  if printf '%s\n' "$block" | grep -Eq '^- \[ \] \([^)]+\) .+'; then
+  if printf '%s\n' "$block" | grep -Eq '^[[:space:]]*- \[ \] .+'; then
     return 0
   fi
   return 1
@@ -69,10 +77,24 @@ phase_has_checklist() {
   local key="$1"
   local block
   block="$(phase_body "$key")"
-  if printf '%s\n' "$block" | grep -Eq '^- \[[ xX]\] \([^)]+\) .+'; then
+  if printf '%s\n' "$block" | grep -Eq '^[[:space:]]*- \[[ xX]\] .+'; then
     return 0
   fi
   return 1
+}
+
+gates_phase_body() {
+  local key="$1"
+  awk -v key="$key" '
+    $0 ~ "^## Phase " key ":" {in_block=1; next}
+    in_block && $0 ~ "^## Phase [0-9]+:" {exit}
+    in_block {print}
+  ' "$GATES_PATH"
+}
+
+gate_has_unchecked() {
+  local key="$1"
+  gates_phase_body "$key" | grep -Eq '^[[:space:]]*- \[ \] .+'
 }
 
 contains_line() {
@@ -175,7 +197,7 @@ cmd_status() {
 
   echo
   echo "Current Phase Checklist:"
-  phase_body "$current_phase" | { grep -E '^- \[[ xX]\] \([^)]+\) .+' || true; }
+  phase_body "$current_phase" | { grep -E '^[[:space:]]*- \[[ xX]\] .+' || true; }
 }
 
 cmd_prompt() {
@@ -257,14 +279,19 @@ cmd_validate() {
         echo "ERROR: Prior phase $key has unchecked checklist items, but current phase is $current_phase." >&2
         errors=$((errors + 1))
       fi
+
+      if [[ "$key" -lt "$current_phase" ]] && gate_has_unchecked "$key"; then
+        echo "ERROR: Prior phase $key has unchecked gate criteria in GATES.md, but current phase is $current_phase." >&2
+        errors=$((errors + 1))
+      fi
     done
 
-    for key in "${gate_rows[@]}"; do
+    for key in ${gate_rows[@]+"${gate_rows[@]}"}; do
       gate_keys+=("$key")
     done
 
     for key in "${phase_keys[@]}"; do
-      if ! contains_line "$key" "${gate_keys[@]}"; then
+      if ! contains_line "$key" ${gate_keys[@]+"${gate_keys[@]}"}; then
         echo "WARNING: GATES.md has no section for Phase $key." >&2
         warnings=$((warnings + 1))
       fi
