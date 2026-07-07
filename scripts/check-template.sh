@@ -27,7 +27,7 @@ if [[ -f CLAUDE.md ]] && ! grep -Eq 'AGENTS\.md' CLAUDE.md; then
   exit 1
 fi
 
-legacy_hits=$(grep -RInE 'Junior Data Engineer|Let\x27s configure your AI context|interactively configure your project context' \
+legacy_hits=$(grep -RInE 'Junior Data Engineer|Let.s configure your AI context|interactively configure your project context' \
   README.md AGENTS.md docs standards 2>/dev/null || true)
 
 if [[ -n "$legacy_hits" ]]; then
