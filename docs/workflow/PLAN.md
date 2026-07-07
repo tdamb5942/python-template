@@ -8,6 +8,8 @@
 
 Fill this in *before* implementation. Treat this block as the primary source for Phase 1 scope and acceptance; use `DECISIONS.md` for architecture decisions and `GATES.md` for advancement criteria.
 
+> **Note:** The values below describe this template itself and are example content — replace every field with your project's contract when instantiating.
+
 ### Required
 - **Objective:** Provide a language-agnostic template for phase-gated agentic software delivery.
 - **Success criteria:** Workflow docs validate, template checks pass, and language standards can be applied via profiles.
@@ -26,7 +28,7 @@ Fill this in *before* implementation. Treat this block as the primary source for
 - None
 
 ## Decisions
-- ADR-000: Use a phase-gated workflow as the execution contract.
+- ADR-000: Adopt phase-gated delivery as the execution contract.
 
 ---
 

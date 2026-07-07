@@ -44,7 +44,7 @@ Validation and status commands:
 
 Before claiming a phase is complete or advancing phases:
 - Run `./scripts/workflow.sh validate` and record the result.
-- Do not check off checklist/gate items without evidence (tests, command output, or concrete file references).
+- Do not check off checklist/gate items without evidence (test output, command output, screenshots, or concrete file references).
 
 ## Decision Triggers (when to add an ADR entry)
 Add an ADR entry in `docs/workflow/DECISIONS.md` when you:
@@ -52,6 +52,7 @@ Add an ADR entry in `docs/workflow/DECISIONS.md` when you:
 - Change a public interface/contract
 - Change persistence/schema semantics
 - Choose a non-obvious architectural approach or major tradeoff
+- Confirm a platform-specific pattern that diverges from general convention
 
 ## Language Standards Profiles
 This core template is language-agnostic.
