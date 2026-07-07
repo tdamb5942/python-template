@@ -6,7 +6,7 @@ Append new decisions below. Do not rewrite history; mark old decisions as supers
 
 ## ADR-000: Adopt phase-gated delivery as the execution contract
 - **Date:** 2026-02-17
-- **Phase:** Setup
+- **Phase:** 1 (Problem Framing and Contract)
 - **Status:** Accepted
 - **Context:** Agentic sessions are fast but can drift without explicit scope, gates, and decision records.
 - **Decision:** Use `PLAN.md`, `GATES.md`, and `DECISIONS.md` as mandatory workflow artifacts.
